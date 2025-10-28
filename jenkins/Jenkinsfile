@@ -12,7 +12,7 @@ pipeline {
                   branches: [[name: '*/main']],
                   userRemoteConfigs: [[
                     url: 'git@github.com:wlicona/hola-mundo.git',
-                    credentialsId: 'github-ssh1'
+                    credentialsId: 'github-ssh'
                 ]]
             ])
         }
