@@ -11,7 +11,7 @@ pipeline {
                 checkout([$class: 'GitSCM',
                   branches: [[name: '*/main']],
                   userRemoteConfigs: [[
-                    url: 'git@github.com:<tu-usuario>/<tu-repo>.git',
+                    url: 'git@github.com:wlicona/hola-mundo.git',
                     credentialsId: 'github-ssh'
                 ]]
             ])
@@ -26,7 +26,7 @@ pipeline {
 
     stage('Deploy to k8s'){
         steps {
-            sh "kubectl set image deployment/ms-sample ms-sample=${IMAGE_NAME}:${IMAGE_TAG} --record || kubectl apply -f k8s/deployment.yaml && kubectl apply -f k8s/service.yaml"
+            sh "kubectl set image deployment/ms-prueba-app ms-prueba-app=${IMAGE_NAME}:${IMAGE_TAG} --record || kubectl apply -f k8s/deployment.yaml && kubectl apply -f k8s/service.yaml"
         }
     }
 
