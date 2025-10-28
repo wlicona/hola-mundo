@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+    environment {
+        IMAGE_NAME = "ms-prueba-app"
+        IMAGE_TAG = "${env.BUILD_NUMBER ?: 'local'}"
+    }
+
+    stages {
+        stage('GitHub Checkout'){
+            steps {
+                checkout([$class: 'GitSCM',
+                  branches: [[name: '*/main']],
+                  userRemoteConfigs: [[
+                    url: 'git@github.com:<tu-usuario>/<tu-repo>.git',
+                    credentialsId: 'github-ssh'
+                ]]
+            ])
+        }
+    }
+
+    stage('Build docker Image'){
+        steps {
+            sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG ./app'
+        }
+    }
+
+    stage('Deploy to k8s'){
+        steps {
+            sh "kubectl set image deployment/ms-sample ms-sample=${IMAGE_NAME}:${IMAGE_TAG} --record || kubectl apply -f k8s/deployment.yaml && kubectl apply -f k8s/service.yaml"
+        }
+    }
+
+    post {
+        success {
+            echo "Deployment successful"
+        }
+
+        failure {
+            echo "Deployment failed"
+        }
+    }
+}
