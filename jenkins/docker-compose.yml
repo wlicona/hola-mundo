@@ -13,6 +13,7 @@ services:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/local/bin/docker:/usr/bin/docker
+      - C:\Users\welicona\.ssh:/var/jenkins_home/.ssh:rw
     environment:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
       - JENKINS_OPTS=--prefix=/jenkins
