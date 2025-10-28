@@ -11,7 +11,7 @@ services:
       - observability
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.6.3
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.3
     container_name: elasticsearch-local
     environment:
       - discovery.type=single-node
@@ -30,7 +30,7 @@ services:
       - observability
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:8.6.3
+    image: docker.elastic.co/kibana/kibana:8.15.3
     container_name: kibana-local
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
@@ -41,8 +41,8 @@ services:
     networks:
       - observability
 
-  logstach:
-    image: docker.elastic.co/logstash/logstash:8.6.3
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.15.3
     container_name: logstash-local
     volumes:
       - ./elk/logstash/pipeline:/usr/share/logstash/pipeline
@@ -55,10 +55,10 @@ services:
       - observability
 
   prometheus:
-    image: prom/prometheus:2.48.1
+    image: prom/prometheus:v2.48.1
     container_name: prometheus-local
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
     networks:
@@ -77,8 +77,8 @@ services:
       - observability
 
 volumes:
-esdata:
-grafana-storage:
+  esdata:
+  grafana-storage:
 
 
 networks:
