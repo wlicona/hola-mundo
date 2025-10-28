@@ -1,0 +1,8 @@
+filebeat.inputs:
+- type: docker
+combine_partial: true
+containers.ids: ['*']
+
+
+output.logstash:
+hosts: ["logstash:5044"]
