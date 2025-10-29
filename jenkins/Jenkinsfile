@@ -26,7 +26,7 @@ pipeline {
 
     stage('Deploy to k8s'){
         steps {
-            sh "kubectl set image deployment/ms-prueba-app ms-prueba-app=${IMAGE_NAME}:${IMAGE_TAG} --record || kubectl apply -f k8s/deployment.yaml && kubectl apply -f k8s/service.yaml"
+            sh " whoami && kubectl set image deployment/ms-prueba-app ms-prueba-app=${IMAGE_NAME}:${IMAGE_TAG} --record || kubectl apply -f k8s/deployment.yaml && kubectl apply -f k8s/service.yaml"
         }
     }
 
