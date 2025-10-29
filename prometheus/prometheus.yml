@@ -5,7 +5,7 @@ global:
 scrape_configs:
   - job_name: 'ms-prueba-app'
     static_configs:
-      - targets: ['app:3000']
+      - targets: ['host.docker.internal:32000']
 
 
   - job_name: 'prometheus'

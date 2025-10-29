@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: deployment
+kind: Deployment
 metadata:
   name: ms-prueba-app 
   labels:
@@ -13,6 +13,9 @@ spec:
     metadata:
       labels:
         app: ms-prueba-app
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "3000"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
         - name: ms-prueba-app
